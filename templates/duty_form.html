@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Room Duty Attendance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+        .duty-section {
+            margin-bottom: 20px;
+        }
+        .member {
+            margin-left: 20px;
+        }
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            display: block;
+            margin: 20px auto;
+            font-size: 16px;
+        }
+        .message {
+            color: green;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Room Duty Attendance</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="message">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="post">
+        {% for duty in duties %}
+        <div class="duty-section">
+            <strong>{{ duty }}:</strong><br>
+            {% for member in members %}
+                <label class="member">
+                    <input type="checkbox" name="{{ duty }}" value="{{ member }}"> {{ member }}
+                </label><br>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="submit-btn">Submit Duties</button>
+    </form>
+</body>
+</html>
